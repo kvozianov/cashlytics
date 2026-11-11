@@ -1,281 +1,140 @@
-import { Metadata } from "next"
+import type { Metadata } from "next"
+import Link from "next/link"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
+import { LedgerRow, MarginNote, Marker, Receipt, ReceiptRule, Stamp } from "@/components/brand"
+import { Parallax } from "@/components/motion/parallax"
+import { RevealLines } from "@/components/motion/reveal-lines"
+import { SmoothScroll } from "@/components/motion/smooth-scroll"
 import { CTA } from "@/components/sections/cta"
-import { 
-  Wallet, 
-  Calculator, 
-  BarChart3, 
-  FileText, 
-  Brain,
-  Check,
-  ArrowRight
-} from "lucide-react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
+import { PageHero } from "@/components/sections/page-hero"
+import { AnalyticsPreview, InsightsPreview, InvoicesPreview, TaxPreview, TrackingPreview } from "./previews"
+import { ServicesIndex } from "./services-index"
 
 export const metadata: Metadata = {
   title: "Services | Cashlytics",
-  description: "Explore our comprehensive financial services including income tracking, tax automation, analytics, invoice management, and AI assistance.",
+  description:
+    "Tracking, tax, analytics, invoices, and insights and learning: what each Cashlytics service does in the live demo today, what is planned, and the planned prices.",
 }
 
 const services = [
   {
     id: "tracking",
-    icon: Wallet,
-    title: "Income & Expense Tracking",
-    description: "Automatically track and categorize every transaction across all your accounts in real-time.",
-    features: [
-      "Automatic bank sync",
-      "Multi-currency support",
-      "Smart categorization",
-      "Receipt scanning",
-      "Custom categories",
-      "Transaction search",
-    ],
-    benefits: [
-      "Save 5+ hours per week on manual entry",
-      "Never miss a deductible expense",
-      "Real-time financial visibility",
-    ],
-    price: "$9/mo",
+    title: "Income & expense tracking",
+    description:
+      "Every transaction in one list, filed into a category by a rule engine that shows its reasoning. You stay in control: correct anything, and the correction becomes a rule.",
+    demo: ["Automatic categorisation", "Your own rules", "Review queue for unsure matches", "Search and filters", "CSV import and export"],
+    planned: ["Bank sync", "Receipt scanning", "Multi-currency"],
+    href: "/demo/transactions",
+    price: 9,
+    Preview: TrackingPreview,
   },
   {
     id: "tax",
-    icon: Calculator,
-    title: "Tax Automation",
-    description: "Stay on top of your tax obligations with real-time calculations and smart deduction tracking.",
-    features: [
-      "Real-time tax estimates",
-      "Quarterly payment reminders",
-      "Deduction optimization",
-      "Tax form preparation",
-      "Multi-state support",
-      "Audit trail",
-    ],
-    benefits: [
-      "Reduce tax prep time by 80%",
-      "Maximize deductions automatically",
-      "Avoid costly surprises at tax time",
-    ],
-    price: "$15/mo",
+    title: "Tax",
+    description:
+      "Know roughly what you owe while you are still earning it. The estimate uses illustrative rates you can change; it is a planning aid, not tax advice, and follows no country’s rules.",
+    demo: ["Live estimate", "Quarterly schedule", "Deductible tracking", "Set-aside suggestion", "What-if scenarios"],
+    planned: ["Country-specific rules", "Form preparation", "Audit trail"],
+    href: "/demo/tax",
+    price: 15,
+    Preview: TaxPreview,
   },
   {
     id: "analytics",
-    icon: BarChart3,
-    title: "Financial Analytics",
-    description: "Transform your financial data into actionable insights with powerful visualizations and reports.",
-    features: [
-      "Custom dashboards",
-      "Trend analysis",
-      "Cash flow forecasting",
-      "Budget tracking",
-      "Goal monitoring",
-      "Export reports",
-    ],
-    benefits: [
-      "Make data-driven financial decisions",
-      "Identify spending patterns",
-      "Track progress toward goals",
-    ],
-    price: "$12/mo",
+    title: "Analytics",
+    description:
+      "See where the money goes and where it is heading: monthly cash flow, category trends, budgets and goals, and a forecast built from what repeats.",
+    demo: ["Dashboard", "Trends", "Cash-flow forecast", "Budgets", "Goals"],
+    planned: ["Custom reports", "Scheduled exports"],
+    href: "/demo",
+    price: 12,
+    Preview: AnalyticsPreview,
   },
   {
     id: "invoices",
-    icon: FileText,
-    title: "Invoice Management",
-    description: "Create, send, and track professional invoices with automated reminders and payment tracking.",
-    features: [
-      "Professional templates",
-      "Automatic reminders",
-      "Online payments",
-      "Recurring invoices",
-      "Client portal",
-      "Payment tracking",
-    ],
-    benefits: [
-      "Get paid 2x faster on average",
-      "Reduce late payments by 60%",
-      "Professional client experience",
-    ],
-    price: "$10/mo",
+    title: "Invoices",
+    description:
+      "Bill clients and keep track of who has paid. A paid invoice is not a separate record: it becomes income and moves your tax estimate straight away.",
+    demo: ["Create and preview", "Status tracking", "Mark paid (flows into income and tax)", "Print to PDF"],
+    planned: ["Online payments", "Automatic reminders", "Recurring invoices", "Client portal"],
+    href: "/demo/invoices",
+    price: 10,
+    Preview: InvoicesPreview,
   },
   {
-    id: "ai",
-    icon: Brain,
-    title: "AI Financial Assistant",
-    description: "Get personalized financial insights and recommendations powered by advanced AI.",
-    features: [
-      "Smart categorization",
-      "Anomaly detection",
-      "Spending insights",
-      "Savings suggestions",
-      "Natural language queries",
-      "Predictive analytics",
+    id: "insights",
+    title: "Insights & learning",
+    description:
+      "The part that tells you what to fix. Rule-based checks score your financial health, find weak points and odd spending, and link each one to a short lesson.",
+    demo: [
+      "Health score",
+      "Weak-point detection",
+      "Subscription audit",
+      "Spending anomalies",
+      "Micro-lessons",
+      "One-line quick add",
     ],
-    benefits: [
-      "Uncover hidden savings opportunities",
-      "Catch errors automatically",
-      "Personalized financial advice",
-    ],
-    price: "$20/mo",
+    planned: ["AI assistant for questions in plain language", "Predictive analytics"],
+    href: "/demo/insights",
+    price: 20,
+    Preview: InsightsPreview,
   },
 ]
 
-const bundlePlan = {
-  name: "All-in-One Plan",
-  originalPrice: "$66",
-  price: "$49",
-  description: "Get all services bundled together at a 25% discount",
-  features: [
-    "Income & Expense Tracking",
-    "Tax Automation",
-    "Financial Analytics",
-    "Invoice Management",
-    "AI Financial Assistant",
-    "Priority Support",
-    "Advanced Integrations",
-  ],
+const bundle = {
+  separately: services.reduce((sum, s) => sum + s.price, 0),
+  price: 49,
 }
 
 export default function ServicesPage() {
   return (
     <>
+      <SmoothScroll />
       <Header />
-      <main className="pt-24">
-        {/* Hero Section */}
-        <section className="py-16 lg:py-24">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="mx-auto max-w-3xl text-center">
-              <p className="text-sm font-semibold uppercase tracking-wide text-primary">
-                Our Services
-              </p>
-              <h1 className="mt-2 text-4xl font-bold tracking-tight text-foreground sm:text-5xl text-balance">
-                Powerful tools for complete financial control
-              </h1>
-              <p className="mt-6 text-lg text-muted-foreground">
-                Choose individual services or bundle them together for the complete 
-                financial management experience.
-              </p>
+      <main id="main">
+        <PageHero
+          meta={["Services", "Five chapters, one ledger", "Nº 002"]}
+          titleId="services-title"
+          titleLines={[
+            "Five services,",
+            <>
+              <Marker delay={420}>one set</Marker> of numbers.
+            </>,
+          ]}
+          lede={
+            <p>
+              Each service lists what you can try in the live demo today and what is still planned. Prices are planned
+              too: Cashlytics is a concept prototype and is not on sale.
+            </p>
+          }
+          aside={
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-4 lg:justify-end">
+              <Stamp size="lg" rotate={-3} delay={300} subline="Not on sale">
+                Prices planned
+              </Stamp>
+              <MarginNote arrow="left" tone="signal" delay={300} className="max-sm:hidden">
+                the demo is free
+              </MarginNote>
             </div>
-          </div>
-        </section>
+          }
+        />
 
-        {/* Services Grid */}
-        <section className="pb-20">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="space-y-16">
-              {services.map((service, index) => (
-                <div
-                  key={service.id}
-                  id={service.id}
-                  className={`flex flex-col gap-12 lg:flex-row lg:items-start ${
-                    index % 2 === 1 ? "lg:flex-row-reverse" : ""
-                  }`}
-                >
-                  <div className="flex-1">
-                    <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-primary/10 to-accent/10">
-                      <service.icon className="h-7 w-7 text-primary" />
-                    </div>
-                    <h2 className="mt-6 text-2xl font-bold text-foreground sm:text-3xl">
-                      {service.title}
-                    </h2>
-                    <p className="mt-4 text-lg text-muted-foreground">
-                      {service.description}
-                    </p>
-                    
-                    <h3 className="mt-8 font-semibold text-foreground">Key Features</h3>
-                    <ul className="mt-4 grid gap-2 sm:grid-cols-2">
-                      {service.features.map((feature) => (
-                        <li key={feature} className="flex items-center gap-2">
-                          <Check className="h-5 w-5 shrink-0 text-accent" />
-                          <span className="text-sm text-muted-foreground">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-
-                    <h3 className="mt-8 font-semibold text-foreground">Benefits</h3>
-                    <ul className="mt-4 space-y-2">
-                      {service.benefits.map((benefit) => (
-                        <li key={benefit} className="flex items-start gap-2">
-                          <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-primary" />
-                          <span className="text-muted-foreground">{benefit}</span>
-                        </li>
-                      ))}
-                    </ul>
-
-                    <div className="mt-8 flex items-center gap-4">
-                      <span className="text-2xl font-bold text-foreground">{service.price}</span>
-                      <Button className="bg-primary hover:bg-primary/90">
-                        Get Started
-                      </Button>
-                    </div>
-                  </div>
-
-                  <div className="flex-1">
-                    <ServicePreview service={service} />
-                  </div>
-                </div>
-              ))}
+        <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:grid grid-cols-[minmax(0,1fr)] lg:grid-cols-12 lg:gap-6 lg:px-12">
+          <aside className="mb-12 lg:col-span-3 lg:mb-0">
+            <div className="lg:sticky lg:top-24 lg:pl-4">
+              <ServicesIndex items={[...services.map(({ id, title }) => ({ id, title })), { id: "bundle", title: "All five together" }]} />
             </div>
+          </aside>
+
+          <div className="lg:col-span-9">
+            {services.map((service, index) => (
+              <ServiceChapter key={service.id} service={service} index={index} />
+            ))}
           </div>
-        </section>
+        </div>
 
-        {/* Bundle Section */}
-        <section className="bg-secondary/50 py-20 lg:py-32">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="mx-auto max-w-4xl">
-              <div className="relative overflow-hidden rounded-2xl border border-primary bg-card p-8 shadow-lg lg:p-12">
-                <div className="absolute -top-20 -right-20 h-40 w-40 rounded-full bg-primary/10 blur-3xl" />
-                <div className="absolute -bottom-20 -left-20 h-40 w-40 rounded-full bg-accent/10 blur-3xl" />
-                
-                <div className="relative">
-                  <div className="inline-block rounded-full bg-primary/10 px-4 py-1 text-sm font-medium text-primary">
-                    Best Value
-                  </div>
-                  <h2 className="mt-4 text-3xl font-bold text-foreground sm:text-4xl">
-                    {bundlePlan.name}
-                  </h2>
-                  <p className="mt-4 text-lg text-muted-foreground">
-                    {bundlePlan.description}
-                  </p>
-
-                  <div className="mt-8 flex items-baseline gap-3">
-                    <span className="text-xl text-muted-foreground line-through">
-                      {bundlePlan.originalPrice}
-                    </span>
-                    <span className="text-5xl font-bold text-foreground">
-                      {bundlePlan.price}
-                    </span>
-                    <span className="text-muted-foreground">/month</span>
-                  </div>
-
-                  <div className="mt-8 grid gap-3 sm:grid-cols-2">
-                    {bundlePlan.features.map((feature) => (
-                      <div key={feature} className="flex items-center gap-2">
-                        <Check className="h-5 w-5 shrink-0 text-accent" />
-                        <span className="text-foreground">{feature}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-                    <Button size="lg" className="bg-primary hover:bg-primary/90" asChild>
-                      <Link href="/pricing">
-                        Start Free Trial
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </Link>
-                    </Button>
-                    <Button size="lg" variant="outline">
-                      Schedule Demo
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
+        <Bundle />
         <CTA />
       </main>
       <Footer />
@@ -283,150 +142,188 @@ export default function ServicesPage() {
   )
 }
 
-function ServicePreview({ service }: { service: typeof services[0] }) {
-  return (
-    <div className="rounded-xl border border-border bg-card p-6 shadow-sm">
-      <div className="flex items-center gap-2 border-b border-border pb-4">
-        <div className="flex gap-1.5">
-          <div className="h-3 w-3 rounded-full bg-red-400" />
-          <div className="h-3 w-3 rounded-full bg-yellow-400" />
-          <div className="h-3 w-3 rounded-full bg-green-400" />
-        </div>
-        <span className="ml-2 text-sm text-muted-foreground">{service.title}</span>
-      </div>
-      <div className="pt-6">
-        {service.id === "tracking" && <TrackingPreview />}
-        {service.id === "tax" && <TaxPreview />}
-        {service.id === "analytics" && <AnalyticsPreview />}
-        {service.id === "invoices" && <InvoicePreview />}
-        {service.id === "ai" && <AIPreview />}
-      </div>
-    </div>
-  )
-}
+type Service = (typeof services)[number]
 
-function TrackingPreview() {
+function ServiceChapter({ service, index }: { service: Service; index: number }) {
+  const n = String(index + 1).padStart(2, "0")
+  const Preview = service.Preview
   return (
-    <div className="space-y-3">
-      {[
-        { name: "Stripe Payment", amount: "+$2,400.00", category: "Income" },
-        { name: "AWS Services", amount: "-$156.00", category: "Software" },
-        { name: "Client Invoice #124", amount: "+$1,850.00", category: "Income" },
-        { name: "Adobe Creative", amount: "-$54.99", category: "Subscription" },
-      ].map((tx, i) => (
-        <div key={i} className="flex items-center justify-between rounded-lg bg-secondary/50 p-3">
-          <div>
-            <p className="font-medium text-foreground">{tx.name}</p>
-            <p className="text-xs text-muted-foreground">{tx.category}</p>
-          </div>
-          <p className={tx.amount.startsWith("+") ? "font-semibold text-accent" : "font-semibold text-foreground"}>
-            {tx.amount}
+    <article
+      id={service.id}
+      aria-labelledby={`${service.id}-title`}
+      className="scroll-mt-20 border-t-2 border-foreground pt-6 pb-20 lg:pb-28"
+    >
+      <div className="flex items-start gap-5 sm:gap-8">
+        <span
+          aria-hidden="true"
+          className="font-display text-[clamp(4rem,9vw,8.5rem)] leading-[0.78] font-extrabold tracking-[-0.06em] text-foreground"
+        >
+          {n}
+        </span>
+        <div className="min-w-0 pt-1">
+          <p className="font-mono text-[11px] font-medium tracking-[0.18em] text-muted-foreground uppercase">
+            Service {n} of {String(services.length).padStart(2, "0")}
           </p>
+          <RevealLines
+            id={`${service.id}-title`}
+            className="mt-2 font-display text-[clamp(2rem,4vw,3.75rem)] leading-[0.95] font-bold tracking-[-0.035em] text-balance"
+            lines={[service.title]}
+          />
         </div>
-      ))}
-    </div>
-  )
-}
+      </div>
+      <p data-animate="" className="reveal mt-6 max-w-2xl text-[1.0625rem] leading-relaxed text-pretty text-muted-foreground">
+        {service.description}
+      </p>
 
-function TaxPreview() {
-  return (
-    <div className="space-y-4">
-      <div className="rounded-lg bg-secondary/50 p-4">
-        <p className="text-sm text-muted-foreground">Estimated Tax (2024)</p>
-        <p className="mt-1 text-3xl font-bold text-foreground">$12,450</p>
-      </div>
-      <div className="grid grid-cols-2 gap-3">
-        <div className="rounded-lg bg-accent/10 p-3">
-          <p className="text-xs text-muted-foreground">Q1 Paid</p>
-          <p className="font-semibold text-accent">$3,100</p>
-        </div>
-        <div className="rounded-lg bg-primary/10 p-3">
-          <p className="text-xs text-muted-foreground">Q2 Due</p>
-          <p className="font-semibold text-primary">$3,112</p>
-        </div>
-      </div>
-      <div className="rounded-lg border border-border p-3">
-        <p className="text-sm font-medium text-foreground">Deductions Found</p>
-        <p className="text-2xl font-bold text-accent">$8,240</p>
-      </div>
-    </div>
-  )
-}
+      <div className="mt-10 grid grid-cols-[minmax(0,1fr)] gap-12 xl:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] xl:gap-10">
+        <div>
+          <section aria-labelledby={`${service.id}-demo`}>
+            <h3 id={`${service.id}-demo`} className="flex items-end justify-between gap-4 border-b-2 border-foreground pb-3">
+              <Stamp tone="success" size="sm" rotate={-2} delay={150}>
+                In the demo
+              </Stamp>
+              <span className="font-mono text-[11px] tracking-[0.14em] text-muted-foreground uppercase tabular-nums">
+                {service.demo.length} working
+              </span>
+            </h3>
+            <ul className="text-[0.95rem]">
+              {service.demo.map((item, i) => (
+                <LedgerRow
+                  key={item}
+                  as="li"
+                  delay={i * 70}
+                  label={item}
+                  value="in demo"
+                  tone="positive"
+                  className="border-b border-border py-2.5"
+                  valueClassName="text-[11px] tracking-[0.12em] uppercase"
+                />
+              ))}
+            </ul>
+          </section>
 
-function AnalyticsPreview() {
-  return (
-    <div className="space-y-4">
-      <div className="flex items-end gap-2">
-        {[35, 45, 30, 60, 45, 75, 65, 80, 70, 90, 85, 95].map((h, i) => (
-          <div key={i} className="flex-1 rounded-t bg-gradient-to-t from-primary to-accent" style={{ height: `${h}px` }} />
-        ))}
-      </div>
-      <div className="grid grid-cols-2 gap-3">
-        <div className="rounded-lg bg-secondary/50 p-3">
-          <p className="text-xs text-muted-foreground">Revenue</p>
-          <p className="font-semibold text-foreground">$48,350</p>
-        </div>
-        <div className="rounded-lg bg-secondary/50 p-3">
-          <p className="text-xs text-muted-foreground">Expenses</p>
-          <p className="font-semibold text-foreground">$12,840</p>
-        </div>
-      </div>
-    </div>
-  )
-}
+          <section aria-labelledby={`${service.id}-planned`} className="mt-10">
+            <h3 id={`${service.id}-planned`} className="flex items-end justify-between gap-4 border-b-2 border-foreground pb-3">
+              <Stamp tone="ink" size="sm" rotate={2} delay={250}>
+                Planned
+              </Stamp>
+              <span className="font-mono text-[11px] tracking-[0.14em] text-muted-foreground uppercase tabular-nums">
+                not built yet
+              </span>
+            </h3>
+            <ul className="text-[0.95rem] text-muted-foreground">
+              {service.planned.map((item, i) => (
+                <LedgerRow
+                  key={item}
+                  as="li"
+                  delay={i * 70}
+                  label={item}
+                  value="planned"
+                  tone="muted"
+                  className="border-b border-border py-2.5"
+                  valueClassName="text-[11px] tracking-[0.12em] uppercase"
+                />
+              ))}
+            </ul>
+          </section>
 
-function InvoicePreview() {
-  return (
-    <div className="space-y-3">
-      <div className="rounded-lg border border-border p-4">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="font-medium text-foreground">Invoice #INV-0124</p>
-            <p className="text-sm text-muted-foreground">Acme Corp</p>
+          <div className="mt-10 font-mono text-sm">
+            <LedgerRow total label="Planned price" value={`$${service.price} / month`} />
           </div>
-          <span className="rounded-full bg-accent/20 px-2 py-1 text-xs font-medium text-accent">
-            Paid
-          </span>
+          <Link href={service.href} className="btn-ink mt-6 h-12 px-6 text-[0.95rem]">
+            Try it in the demo <span aria-hidden="true">→</span>
+          </Link>
         </div>
-        <p className="mt-2 text-lg font-bold text-foreground">$4,500.00</p>
+
+        <Parallax offset={70} rotate={index % 2 === 0 ? -1.4 : 1.4} className="xl:pt-6">
+          <figure className="paper px-4 pt-6 pb-7 sm:px-6">
+            <figcaption className="mb-4 flex items-baseline justify-between gap-3 border-b border-foreground/80 pb-2 font-mono text-[10.5px] tracking-[0.14em] text-muted-foreground uppercase">
+              <span>
+                Fig. {n} · {service.title}
+              </span>
+              <span className="shrink-0">Illustrative data</span>
+            </figcaption>
+            <Preview />
+            <Link
+              href={service.href}
+              className="mt-5 inline-flex items-center gap-1.5 font-mono text-[11px] font-medium tracking-[0.14em] uppercase underline decoration-1 underline-offset-4 hover:decoration-2"
+            >
+              Open the real screen <span aria-hidden="true">↗</span>
+            </Link>
+          </figure>
+        </Parallax>
       </div>
-      <div className="rounded-lg border border-border p-4">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="font-medium text-foreground">Invoice #INV-0125</p>
-            <p className="text-sm text-muted-foreground">TechStart Inc</p>
-          </div>
-          <span className="rounded-full bg-yellow-500/20 px-2 py-1 text-xs font-medium text-yellow-600">
-            Pending
-          </span>
-        </div>
-        <p className="mt-2 text-lg font-bold text-foreground">$2,800.00</p>
-      </div>
-    </div>
+    </article>
   )
 }
 
-function AIPreview() {
+function Bundle() {
   return (
-    <div className="space-y-3">
-      <div className="rounded-lg bg-primary/5 p-3">
-        <p className="text-sm font-medium text-primary">Insight</p>
-        <p className="mt-1 text-sm text-muted-foreground">
-          {"Your software subscriptions increased 23% this quarter. Consider reviewing for unused services."}
-        </p>
+    <section id="bundle" aria-labelledby="bundle-title" className="scroll-mt-20 border-t border-border py-20 lg:py-28">
+      <div className="mx-auto grid grid-cols-[minmax(0,1fr)] max-w-[1440px] gap-12 px-5 sm:px-8 lg:grid-cols-12 lg:gap-6 lg:px-12">
+        <div className="lg:col-span-5">
+          <p className="font-mono text-[11px] font-medium tracking-[0.18em] text-muted-foreground uppercase">Planned bundle</p>
+          <RevealLines
+            id="bundle-title"
+            className="mt-4 font-display text-[clamp(2.25rem,4.4vw,4.25rem)] leading-[0.96] font-bold tracking-[-0.035em]"
+            lines={["All five", "together."]}
+          />
+          <p data-animate="" className="reveal mt-6 max-w-md leading-relaxed text-pretty text-muted-foreground">
+            A bundle price for all five services, because they are most useful when they share the same data. Like
+            every price on this site, it is planned and not on sale.
+          </p>
+          <div className="mt-8">
+            <Stamp size="lg" rotate={-3} subline="Not on sale">
+              Planned
+            </Stamp>
+          </div>
+          <div className="mt-10 flex flex-wrap items-center gap-x-7 gap-y-4">
+            <Link href="/demo" className="btn-ink h-12 px-6">
+              Try the demo <span aria-hidden="true">→</span>
+            </Link>
+            <Link href="/pricing" className="py-2 font-medium underline decoration-1 underline-offset-[6px] hover:decoration-2">
+              See planned pricing
+            </Link>
+          </div>
+        </div>
+
+        <div className="lg:col-span-5 lg:col-start-8">
+          <div aria-hidden="true" className="relative z-10 mx-[-10px] h-2.5 rounded-[2px] bg-foreground" />
+          <Receipt edge="bottom" printMs={1400} className="pt-6 text-[12.5px]">
+            <div className="flex justify-between text-[10.5px] tracking-[0.16em] text-muted-foreground uppercase">
+              <span>Cashlytics</span>
+              <span>Bundle · planned</span>
+            </div>
+            <ReceiptRule className="mt-4" />
+            <ul className="space-y-1.5">
+              {services.map((s) => (
+                <LedgerRow key={s.id} as="li" still label={s.title} value={`$${s.price}`} />
+              ))}
+            </ul>
+            <ReceiptRule />
+            <LedgerRow
+              still
+              label="Separately"
+              value={
+                <Marker variant="strike" delay={1300}>
+                  ${bundle.separately} / mo
+                </Marker>
+              }
+              tone="muted"
+            />
+            <p className="mt-3 flex items-baseline justify-between gap-3">
+              <span className="tracking-[0.12em] uppercase">All five</span>
+              <span className="text-[2.25rem] leading-none font-medium tracking-[-0.04em] tabular-nums">
+                ${bundle.price}
+                <span className="ml-1 text-sm tracking-normal text-muted-foreground">/ month</span>
+              </span>
+            </p>
+            <ReceiptRule />
+            <LedgerRow still label="Due today" value="$0.00" />
+            <p className="mt-1 text-[11px] text-muted-foreground">Nothing is charged anywhere on this site.</p>
+          </Receipt>
+        </div>
       </div>
-      <div className="rounded-lg bg-accent/5 p-3">
-        <p className="text-sm font-medium text-accent">Savings Opportunity</p>
-        <p className="mt-1 text-sm text-muted-foreground">
-          {"Potential $420/year savings by switching your cloud provider."}
-        </p>
-      </div>
-      <div className="rounded-lg bg-secondary p-3">
-        <p className="text-sm font-medium text-foreground">Ask AI</p>
-        <p className="mt-1 text-sm text-muted-foreground">
-          {"\"What were my top expenses last month?\""}
-        </p>
-      </div>
-    </div>
+    </section>
   )
 }

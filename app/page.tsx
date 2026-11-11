@@ -1,25 +1,40 @@
+import type { Metadata } from "next"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
+import { SmoothScroll } from "@/components/motion/smooth-scroll"
 import { Hero } from "@/components/sections/hero"
-import { About } from "@/components/sections/about"
+import { TickerBand } from "@/components/sections/ticker-band"
+import { StatementScene } from "@/components/sections/statement-scene"
+import { PreviewPlate } from "@/components/sections/preview-plate"
+import { ChapterManage } from "@/components/sections/chapter-manage"
+import { ChapterPlan } from "@/components/sections/chapter-plan"
+import { ChapterLearn } from "@/components/sections/chapter-learn"
+import { Personas } from "@/components/sections/personas"
 import { Problems } from "@/components/sections/problems"
-import { Solutions } from "@/components/sections/solutions"
-import { Features } from "@/components/sections/features"
-import { WhyChooseUs } from "@/components/sections/why-choose-us"
 import { PricingPreview } from "@/components/sections/pricing-preview"
 import { CTA } from "@/components/sections/cta"
+
+export const metadata: Metadata = {
+  title: "Cashlytics — Manage · Plan · Learn",
+  description:
+    "A concept prototype for managing income and expenses, estimating tax as you earn and finding the weak spots in your money strategy. Live demo in your browser, fictional data, no sign-up.",
+}
 
 export default function HomePage() {
   return (
     <>
+      <SmoothScroll />
       <Header />
-      <main>
+      <main id="main">
         <Hero />
-        <About />
+        <TickerBand />
+        <StatementScene />
+        <PreviewPlate />
+        <ChapterManage />
+        <ChapterPlan />
+        <ChapterLearn />
+        <Personas />
         <Problems />
-        <Solutions />
-        <Features />
-        <WhyChooseUs />
         <PricingPreview />
         <CTA />
       </main>

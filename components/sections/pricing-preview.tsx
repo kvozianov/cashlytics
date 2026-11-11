@@ -1,98 +1,51 @@
 import Link from "next/link"
-import { ArrowRight, Check } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Eyebrow, Stamp } from "@/components/brand"
+import { RevealLines } from "@/components/motion/reveal-lines"
+import { PlanCard } from "./plan-card"
+import { plans } from "./plans"
 
-const plans = [
-  {
-    name: "Basic",
-    price: "$9",
-    description: "Perfect for individuals",
-    features: ["Income tracking", "Basic analytics", "5 invoices/month"],
-  },
-  {
-    name: "Pro",
-    price: "$29",
-    description: "For growing freelancers",
-    features: ["Everything in Basic", "Tax calculations", "Unlimited invoices", "AI categorization"],
-    popular: true,
-  },
-  {
-    name: "Business",
-    price: "$79",
-    description: "For small businesses",
-    features: ["Everything in Pro", "Team access", "Priority support", "Custom reports"],
-  },
-]
+const drop = ["lg:mt-0", "lg:mt-20", "lg:mt-8"]
 
 export function PricingPreview() {
   return (
-    <section className="bg-secondary/50 py-20 lg:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-wide text-primary">
-            Pricing
+    <section id="pricing" aria-labelledby="pricing-preview-title" className="overflow-x-clip border-t border-border py-20 lg:py-32">
+      <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
+        <div className="grid gap-8 lg:grid-cols-12 lg:gap-6">
+          <div className="lg:col-span-5">
+            <Eyebrow>Planned pricing</Eyebrow>
+            <RevealLines
+              id="pricing-preview-title"
+              className="mt-5 font-display text-[clamp(2.25rem,4.4vw,4.25rem)] leading-[0.96] font-bold tracking-[-0.035em]"
+              lines={["How it would", "be priced."]}
+            />
+          </div>
+          <p data-animate="" className="reveal max-w-md leading-relaxed text-pretty text-muted-foreground lg:col-span-4 lg:col-start-8 lg:self-end">
+            Cashlytics is not on sale, so nobody can buy it today. These are the plans we designed for a future launch.
+            The demo is free and needs no account.
           </p>
-          <h2 className="mt-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            Simple, transparent pricing
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground">
-            Choose the plan that fits your needs. All plans include a 14-day free trial.
-          </p>
+          <div className="lg:col-span-12 lg:-mb-6 lg:flex lg:justify-end">
+            <Stamp size="lg" rotate={-3} delay={300} subline="Not on sale">
+              Planned
+            </Stamp>
+          </div>
         </div>
 
-        <div className="mx-auto mt-16 grid max-w-5xl gap-6 lg:grid-cols-3">
-          {plans.map((plan) => (
-            <div
-              key={plan.name}
-              className={`relative rounded-xl border bg-card p-8 shadow-sm ${
-                plan.popular
-                  ? "border-primary ring-2 ring-primary"
-                  : "border-border"
-              }`}
-            >
-              {plan.popular && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <span className="rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground">
-                    Most Popular
-                  </span>
-                </div>
-              )}
-              <div className="text-center">
-                <h3 className="text-lg font-semibold text-foreground">{plan.name}</h3>
-                <p className="mt-1 text-sm text-muted-foreground">{plan.description}</p>
-                <p className="mt-4">
-                  <span className="text-4xl font-bold text-foreground">{plan.price}</span>
-                  <span className="text-muted-foreground">/month</span>
-                </p>
-              </div>
-              <ul className="mt-8 space-y-3">
-                {plan.features.map((feature) => (
-                  <li key={feature} className="flex items-center gap-3">
-                    <Check className="h-5 w-5 shrink-0 text-accent" />
-                    <span className="text-sm text-foreground">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-              <Button
-                className={`mt-8 w-full ${
-                  plan.popular
-                    ? "bg-primary hover:bg-primary/90"
-                    : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
-                }`}
-              >
-                Get Started
-              </Button>
-            </div>
+        <div className="relative mt-24 grid gap-x-8 gap-y-24 md:grid-cols-2 lg:mt-28 lg:grid-cols-3 lg:gap-x-10">
+          {plans.map((plan, i) => (
+            <PlanCard key={plan.id} plan={plan} compact delay={i * 220} className={drop[i]} />
           ))}
         </div>
 
-        <div className="mt-12 text-center">
-          <Button variant="outline" asChild>
-            <Link href="/pricing">
-              View full pricing details
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
+        <div className="mt-16 flex flex-col gap-4 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className="font-mono text-[11px] tracking-[0.08em] text-muted-foreground uppercase">
+            Prices are planned and may change. Nothing is charged anywhere on this site.
+          </p>
+          <Link
+            href="/pricing"
+            className="inline-flex items-center gap-2 font-medium underline decoration-1 underline-offset-[6px] hover:decoration-2"
+          >
+            See all planned plans <span aria-hidden="true">→</span>
+          </Link>
         </div>
       </div>
     </section>

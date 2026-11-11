@@ -1,42 +1,43 @@
 import Link from "next/link"
-import { ArrowRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Marker } from "@/components/brand"
+import { Magnetic } from "@/components/motion/magnetic"
+import { RevealLines } from "@/components/motion/reveal-lines"
+import { Coin } from "./scenes"
 
 export function CTA() {
   return (
-    <section className="py-20 lg:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary to-accent px-8 py-16 text-center shadow-2xl lg:px-16 lg:py-24">
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRoLTJWMGgydjM0em0tNCAwSDBoLTJWMGgydjM0eiIvPjwvZz48L2c+PC9zdmc+')] opacity-20" />
-          <div className="relative">
-            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl text-balance">
-              Ready to take control of your finances?
-            </h2>
-            <p className="mx-auto mt-6 max-w-2xl text-lg text-white/80">
-              Join thousands of individuals and businesses who trust Cashlytics 
-              to manage their financial future. Start your free trial today.
-            </p>
-            <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Button
-                size="lg"
-                className="w-full bg-white text-primary hover:bg-white/90 sm:w-auto"
-                asChild
+    <section aria-labelledby="cta-title" className="relative overflow-x-clip bg-primary py-24 text-primary-foreground lg:py-36">
+      <div className="mx-auto grid max-w-[1440px] items-center gap-10 px-5 sm:px-8 lg:grid-cols-12 lg:gap-6 lg:px-12">
+        <div className="relative z-10 lg:col-span-8">
+          <RevealLines
+            id="cta-title"
+            className="font-display text-[clamp(2.75rem,7vw,7.5rem)] leading-[0.92] font-extrabold tracking-[-0.045em]"
+            lines={[
+              "Two minutes",
+              <>
+                is <Marker delay={600}>enough</Marker> to see
+              </>,
+              "how it fits together.",
+            ]}
+          />
+          <p data-animate="" className="reveal mt-8 max-w-xl text-lg leading-relaxed text-pretty opacity-80">
+            Open the demo, pick a persona, and mark an invoice paid. Income, the tax estimate and the health score all
+            change at once. No sign-up, and nothing you enter leaves your browser.
+          </p>
+          <div className="mt-10">
+            <Magnetic>
+              <Link
+                href="/demo"
+                className="btn-ink h-16 bg-primary-foreground px-9 text-lg text-primary focus-visible:outline-primary-foreground"
               >
-                <Link href="/pricing">
-                  Start Free Trial
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="w-full border-white/30 bg-transparent text-white hover:bg-white/10 sm:w-auto"
-                asChild
-              >
-                <Link href="/services">Learn More</Link>
-              </Button>
-            </div>
+                Open the live demo
+                <span aria-hidden="true">→</span>
+              </Link>
+            </Magnetic>
           </div>
+        </div>
+        <div aria-hidden="true" className="relative mx-auto aspect-square w-[min(80vw,420px)] lg:col-span-4 lg:w-[115%] lg:max-w-none">
+          <Coin />
         </div>
       </div>
     </section>

@@ -3,80 +3,154 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/*
+ * Paper, ink and a marker.
+ * Light is "paper", dark is "ink". Lime is the highlighter: a fill, never text
+ * on paper. Vermilion (--signal) is for stamps and marks; --destructive is the
+ * same hue stepped down so it passes as text.
+ */
 :root {
-  --background: oklch(0.985 0.002 240);
-  --foreground: oklch(0.18 0.02 240);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.18 0.02 240);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.18 0.02 240);
-  --primary: oklch(0.55 0.18 240);
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.96 0.01 240);
-  --secondary-foreground: oklch(0.18 0.02 240);
-  --muted: oklch(0.96 0.01 240);
-  --muted-foreground: oklch(0.45 0.02 240);
-  --accent: oklch(0.7 0.15 155);
-  --accent-foreground: oklch(0.18 0.02 155);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.92 0.01 240);
-  --input: oklch(0.92 0.01 240);
-  --ring: oklch(0.55 0.18 240);
-  --chart-1: oklch(0.55 0.18 240);
-  --chart-2: oklch(0.7 0.15 155);
-  --chart-3: oklch(0.65 0.16 200);
-  --chart-4: oklch(0.75 0.12 180);
-  --chart-5: oklch(0.60 0.14 220);
-  --radius: 0.75rem;
-  --sidebar: oklch(0.985 0.002 240);
-  --sidebar-foreground: oklch(0.18 0.02 240);
-  --sidebar-primary: oklch(0.55 0.18 240);
-  --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.96 0.01 240);
-  --sidebar-accent-foreground: oklch(0.18 0.02 240);
-  --sidebar-border: oklch(0.92 0.01 240);
-  --sidebar-ring: oklch(0.55 0.18 240);
+  --paper: #f2eee6;
+  --ink: #14130f;
+  --lime: #d6f84c;
+  --signal: #f0502d;
+
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: #fbf9f4;
+  --card-foreground: var(--ink);
+  --popover: #fbf9f4;
+  --popover-foreground: var(--ink);
+  --primary: var(--ink);
+  --primary-foreground: #fbf9f4;
+  --secondary: #e8e3d7;
+  --secondary-foreground: var(--ink);
+  --muted: #e8e3d7;
+  --muted-foreground: #5f5b50;
+  --accent: var(--lime);
+  --accent-foreground: var(--ink);
+  --destructive: #bf3418;
+  --destructive-foreground: #fbf9f4;
+  --border: #14130f24;
+  --border-strong: var(--ink);
+  --input: #14130f38;
+  --ring: var(--ink);
+
+  --success: #0e7c4a;
+  --success-foreground: #fbf9f4;
+  --warning: #8f6000;
+  --warning-foreground: #fbf9f4;
+  --stamp: #bf3418;
+
+  --chart-1: var(--ink);
+  --chart-2: #0e7c4a;
+  --chart-3: #b0452e;
+  --chart-4: #b8862b;
+  --chart-5: #56636f;
+
+  --radius: 0.375rem;
+
+  --sidebar: #ede8de;
+  --sidebar-foreground: var(--ink);
+  --sidebar-primary: var(--ink);
+  --sidebar-primary-foreground: #fbf9f4;
+  --sidebar-accent: #e3ddd0;
+  --sidebar-accent-foreground: var(--ink);
+  --sidebar-border: #14130f24;
+  --sidebar-ring: var(--ink);
+
+  /* Printing inks: muted and paper-friendly. Checked for colour-blind separation between neighbours
+     (protan/deutan) and >= 3:1 against the card, in both themes. */
+  --cat-1: #3f68c3; /* cobalt */
+  --cat-2: #924613; /* rust */
+  --cat-3: #088b5f; /* forest */
+  --cat-4: #8d6400; /* ochre */
+  --cat-5: #bc5fa6; /* plum */
+  --cat-6: #055e95; /* slate blue */
+  --cat-7: #93344e; /* rose */
+  --cat-8: #5b7a06; /* olive */
+  --cat-9: #7d7dc0; /* indigo */
+  --cat-10: #ad605d; /* brick */
+  --cat-11: #0b9a96; /* teal */
+  --cat-12: #5a6816; /* moss */
+
+  --grain-opacity: 0.45;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-draw: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .dark {
-  --background: oklch(0.145 0.015 240);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.18 0.015 240);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.18 0.015 240);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.65 0.18 240);
-  --primary-foreground: oklch(0.145 0 0);
-  --secondary: oklch(0.25 0.015 240);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.25 0.015 240);
-  --muted-foreground: oklch(0.65 0.02 240);
-  --accent: oklch(0.75 0.15 155);
-  --accent-foreground: oklch(0.145 0 0);
-  --destructive: oklch(0.45 0.2 27.325);
-  --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.3 0.015 240);
-  --input: oklch(0.3 0.015 240);
-  --ring: oklch(0.65 0.18 240);
-  --chart-1: oklch(0.65 0.18 240);
-  --chart-2: oklch(0.75 0.15 155);
-  --chart-3: oklch(0.70 0.16 200);
-  --chart-4: oklch(0.80 0.12 180);
-  --chart-5: oklch(0.65 0.14 220);
-  --sidebar: oklch(0.18 0.015 240);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.65 0.18 240);
-  --sidebar-primary-foreground: oklch(0.145 0 0);
-  --sidebar-accent: oklch(0.25 0.015 240);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.3 0.015 240);
-  --sidebar-ring: oklch(0.65 0.18 240);
+  --background: #12110e;
+  --foreground: #efebe1;
+  --card: #1a1915;
+  --card-foreground: #efebe1;
+  --popover: #1e1d19;
+  --popover-foreground: #efebe1;
+  --primary: #efebe1;
+  --primary-foreground: #12110e;
+  --secondary: #24221d;
+  --secondary-foreground: #efebe1;
+  --muted: #24221d;
+  --muted-foreground: #a29d8f;
+  --accent: var(--lime);
+  --accent-foreground: var(--ink);
+  --destructive: #ff6a47;
+  --destructive-foreground: #12110e;
+  --border: #efebe124;
+  --border-strong: #efebe1;
+  --input: #efebe133;
+  --ring: #efebe1;
+
+  --success: #46d59a;
+  --success-foreground: #12110e;
+  --warning: #e0a93a;
+  --warning-foreground: #12110e;
+  --stamp: #ff6a47;
+
+  --chart-1: #efebe1;
+  --chart-2: #46d59a;
+  --chart-3: #e0775c;
+  --chart-4: #e0b456;
+  --chart-5: #9aa7b3;
+
+  --sidebar: #161511;
+  --sidebar-foreground: #efebe1;
+  --sidebar-primary: #efebe1;
+  --sidebar-primary-foreground: #12110e;
+  --sidebar-accent: #24221d;
+  --sidebar-accent-foreground: #efebe1;
+  --sidebar-border: #efebe124;
+  --sidebar-ring: #efebe1;
+
+  --cat-1: #6e91d8;
+  --cat-2: #ad6232;
+  --cat-3: #4a9d77;
+  --cat-4: #866005;
+  --cat-5: #bc7bab;
+  --cat-6: #2f6e9f;
+  --cat-7: #a55869;
+  --cat-8: #758e45;
+  --cat-9: #6e6cba;
+  --cat-10: #d25c5b;
+  --cat-11: #149490;
+  --cat-12: #8b9f33;
+
+  --grain-opacity: 0.28;
 }
 
 @theme inline {
-  --font-sans: 'Inter', 'Inter Fallback', system-ui, sans-serif;
-  --font-mono: 'Geist Mono', 'Geist Mono Fallback', monospace;
+  --font-sans: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-bricolage), var(--font-schibsted), ui-sans-serif, sans-serif;
+  --font-mono: var(--font-dm-mono), ui-monospace, 'SFMono-Regular', monospace;
+  --font-hand: var(--font-caveat), 'Bradley Hand', cursive;
+
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-lime: var(--lime);
+  --color-signal: var(--signal);
+  --color-stamp: var(--stamp);
+  --color-border-strong: var(--border-strong);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -101,9 +175,9 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
   --radius-xl: calc(var(--radius) + 4px);
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
@@ -113,13 +187,538 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-cat-1: var(--cat-1);
+  --color-cat-2: var(--cat-2);
+  --color-cat-3: var(--cat-3);
+  --color-cat-4: var(--cat-4);
+  --color-cat-5: var(--cat-5);
+  --color-cat-6: var(--cat-6);
+  --color-cat-7: var(--cat-7);
+  --color-cat-8: var(--cat-8);
+  --color-cat-9: var(--cat-9);
+  --color-cat-10: var(--cat-10);
+  --color-cat-11: var(--cat-11);
+  --color-cat-12: var(--cat-12);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    scrollbar-color: color-mix(in oklab, var(--foreground) 32%, transparent) transparent;
+    scrollbar-width: thin;
+    -webkit-tap-highlight-color: transparent;
+  }
   body {
     @apply bg-background text-foreground;
+  }
+  ::selection {
+    background: var(--lime);
+    color: var(--ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--foreground);
+    outline-offset: 3px;
+  }
+  .font-mono,
+  code,
+  kbd {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Paper grain. One fixed layer, no blend modes, so scrolling stays cheap. */
+.paper-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .08 0 0 0 0 .07 0 0 0 0 .06 1.1 0 0 0 -.5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 240px 240px;
+  animation: grain-in 900ms ease-out both;
+}
+.dark .paper-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .94 0 0 0 0 .92 0 0 0 0 .88 .9 0 0 0 -.42'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+@keyframes grain-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+/* ------------------------------------------------------------------ */
+/* Reveal state.
+ * Anything with [data-animate] starts in its "before" state, and one observer
+ * marks it [data-inview="true"] when it scrolls into view. Scenes can drive the
+ * same state by hand with data-inview="true" | "false".
+ * Without JavaScript, or with reduced motion, --pre stays 0 and everything is
+ * simply there. Components read it as calc(var(--pre) * ...).
+ */
+[data-animate],
+[data-inview] {
+  --pre: 0;
+}
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  [data-animate]:not([data-inview]),
+  [data-inview='false'] {
+    --pre: 1;
+  }
+}
+
+/* The first screen does not wait for the observer: it plays as soon as the page paints. */
+html[data-boot] [data-boot-reveal] [data-animate]:not([data-inview]) {
+  --pre: 0;
+}
+/*
+ * Safety net: if the observer has not started after a few seconds (script
+ * failed, very slow device), everything is shown anyway. Once it starts it
+ * marks <html data-io> and this rule stops applying.
+ */
+@keyframes pre-release {
+  to {
+    --pre: 0;
+  }
+}
+html:not([data-io]) [data-animate]:not([data-inview]) {
+  animation: pre-release 0s 1.5s forwards;
+}
+
+/*
+ * The first screen plays a shorter cut of the same moves, so the headline is
+ * readable within a beat of the first paint.
+ */
+[data-boot-reveal] {
+  --dur: 450ms;
+}
+[data-boot-reveal] .reveal {
+  transition-duration: 450ms, 600ms;
+}
+[data-boot-reveal] .rl-inner {
+  transition-duration: 600ms;
+}
+[data-boot-reveal] .mk {
+  transition-duration: 500ms, 200ms;
+}
+[data-boot-reveal] .mnote-text {
+  transition-duration: 450ms;
+}
+
+/* Fade-up for small pieces of copy. */
+.reveal {
+  opacity: calc(1 - var(--pre));
+  translate: 0 calc(var(--pre) * 1.25rem);
+  transition:
+    opacity 700ms var(--ease-out) var(--d, 0ms),
+    translate 900ms var(--ease-out) var(--d, 0ms);
+}
+
+/* RevealLines: each line rises out of its own mask. */
+.rl-line {
+  display: block;
+  clip-path: inset(-0.6em -1em -0.24em -1em);
+}
+.rl-inner {
+  display: block;
+  translate: 0 calc(var(--pre) * 125%);
+  rotate: calc(var(--pre) * 2.5deg);
+  transform-origin: 0 100%;
+  transition:
+    translate 1000ms var(--ease-out) calc(var(--d, 0ms) + var(--i, 0) * var(--stagger, 110ms)),
+    rotate 1000ms var(--ease-out) calc(var(--d, 0ms) + var(--i, 0) * var(--stagger, 110ms));
+}
+
+/* Marker: highlighter, scribbled underline or strike, painted per line fragment. */
+.mk {
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  background-repeat: no-repeat;
+  transition:
+    background-size 750ms var(--ease-draw) var(--d, 0ms),
+    color 200ms linear calc(var(--d, 0ms) + 150ms);
+}
+.mk-highlight {
+  padding-inline: 0.1em;
+  margin-inline: -0.1em;
+  background-position: 0 62%;
+  background-size: calc((1 - var(--pre)) * 100%) 72%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 60' preserveAspectRatio='none'%3E%3Cpath fill='%23D6F84C' d='M7 17C61 9 141 14 221 8s139-1 175 6l-3 16c3 8-2 16 1 22-94 4-194-2-274 3S31 54 4 51c3-11-3-23 3-34Z'/%3E%3C/svg%3E");
+}
+/* Words under the highlighter turn ink, whatever colour they had (dark theme, inverted sections). */
+.mk-highlight {
+  color: color-mix(in srgb, var(--ink) calc((1 - var(--pre, 0)) * 100%), currentColor);
+}
+.mk-underline {
+  background-position: 0 100%;
+  background-size: calc((1 - var(--pre)) * 100%) 0.24em;
+  padding-bottom: 0.06em;
+}
+.mk-underline.mk-lime {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 16' preserveAspectRatio='none'%3E%3Cpath fill='none' stroke='%23D6F84C' stroke-width='5' stroke-linecap='round' d='M3 9c57-6 117 4 197-2s141-4 197 1'/%3E%3C/svg%3E");
+}
+.mk-underline.mk-signal {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 16' preserveAspectRatio='none'%3E%3Cpath fill='none' stroke='%23F0502D' stroke-width='4' stroke-linecap='round' d='M3 9c57-6 117 4 197-2s141-4 197 1'/%3E%3C/svg%3E");
+}
+.mk-underline.mk-ink {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 16' preserveAspectRatio='none'%3E%3Cpath fill='none' stroke='%2314130F' stroke-width='3' stroke-linecap='round' d='M3 9c57-6 117 4 197-2s141-4 197 1'/%3E%3C/svg%3E");
+}
+.dark .mk-underline.mk-ink {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 16' preserveAspectRatio='none'%3E%3Cpath fill='none' stroke='%23EFEBE1' stroke-width='3' stroke-linecap='round' d='M3 9c57-6 117 4 197-2s141-4 197 1'/%3E%3C/svg%3E");
+}
+.mk-strike {
+  background-position: 0 58%;
+  background-size: calc((1 - var(--pre)) * 100%) 0.22em;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 16' preserveAspectRatio='none'%3E%3Cpath fill='none' stroke='%23F0502D' stroke-width='4' stroke-linecap='round' d='M2 10c80-5 150 1 210-3s130-2 186-4'/%3E%3C/svg%3E");
+}
+
+/* Hand-drawn strokes inside SVGs (Circled, MarginNote arrows). Paths use pathLength="1". */
+.draw {
+  stroke-dasharray: 1 2;
+  stroke-dashoffset: calc(var(--pre) * 1.05);
+  transition: stroke-dashoffset var(--dur, 800ms) var(--ease-draw) var(--d, 0ms);
+}
+
+/* MarginNote: the handwriting reveals left to right, then the arrow draws. */
+.mnote-text {
+  /* the right edge sits past the box once revealed, so a trailing swash is never shaved off */
+  clip-path: inset(-30% calc(var(--pre) * 113% - 12%) -30% -10%);
+  transition: clip-path 650ms cubic-bezier(0.5, 0, 0.3, 1) var(--d, 0ms);
+}
+
+/* Stamp */
+.stamp {
+  opacity: calc(1 - var(--pre));
+  rotate: var(--r, -6deg);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -7 0 0 0 6.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23s)'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -7 0 0 0 6.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23s)'/%3E%3C/svg%3E");
+  -webkit-mask-size: 160px 160px;
+  mask-size: 160px 160px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .stamp[data-inview='true'],
+  html[data-boot] [data-boot-reveal] .stamp[data-animate] {
+    animation: stamp-thunk 420ms cubic-bezier(0.2, 0.9, 0.3, 1) var(--d, 0ms) both;
+  }
+}
+@keyframes stamp-thunk {
+  0% {
+    opacity: 0;
+    scale: 1.7;
+    translate: 0 -8px;
+  }
+  32% {
+    opacity: 1;
+    scale: 0.94;
+    translate: 0 0;
+  }
+  48% {
+    scale: 1.02;
+    translate: 1.5px -1px;
+  }
+  64% {
+    scale: 1;
+    translate: -1px 0.5px;
+  }
+  100% {
+    opacity: 1;
+    scale: 1;
+    translate: 0 0;
+  }
+}
+
+/* Paper sheet with perforated edges. .print makes it print downward into view, in line-sized steps. */
+.paper {
+  position: relative;
+  isolation: isolate;
+}
+.paper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--card);
+  filter: drop-shadow(0 0 0.7px color-mix(in oklab, var(--foreground) 50%, transparent));
+  -webkit-mask:
+    radial-gradient(circle at 7px 0, #0000 4px, #000 4.5px) top / 14px 51% repeat-x,
+    radial-gradient(circle at 7px 100%, #0000 4px, #000 4.5px) bottom / 14px 51% repeat-x;
+  mask:
+    radial-gradient(circle at 7px 0, #0000 4px, #000 4.5px) top / 14px 51% repeat-x,
+    radial-gradient(circle at 7px 100%, #0000 4px, #000 4.5px) bottom / 14px 51% repeat-x;
+}
+.paper[data-edge='top']::before {
+  -webkit-mask:
+    radial-gradient(circle at 7px 0, #0000 4px, #000 4.5px) top / 14px 51% repeat-x,
+    linear-gradient(#000 0 0) bottom / 100% 51% no-repeat;
+  mask:
+    radial-gradient(circle at 7px 0, #0000 4px, #000 4.5px) top / 14px 51% repeat-x,
+    linear-gradient(#000 0 0) bottom / 100% 51% no-repeat;
+}
+.paper[data-edge='bottom']::before {
+  -webkit-mask:
+    linear-gradient(#000 0 0) top / 100% 51% no-repeat,
+    radial-gradient(circle at 7px 100%, #0000 4px, #000 4.5px) bottom / 14px 51% repeat-x;
+  mask:
+    linear-gradient(#000 0 0) top / 100% 51% no-repeat,
+    radial-gradient(circle at 7px 100%, #0000 4px, #000 4.5px) bottom / 14px 51% repeat-x;
+}
+.paper[data-edge='none']::before {
+  -webkit-mask: none;
+  mask: none;
+}
+.print {
+  clip-path: inset(-80px -80px calc(var(--pre) * 100%) -80px);
+  translate: 0 calc(var(--pre) * -1.5rem);
+  transition:
+    clip-path var(--print, 1200ms) steps(14, end) var(--d, 0ms),
+    translate var(--print, 1200ms) steps(14, end) var(--d, 0ms);
+}
+
+/* Ledger rows: the dotted leader runs in, the figure lands. */
+.ldr-leader {
+  flex: 1 1 1.5rem;
+  min-width: 1.5rem;
+  align-self: flex-end;
+  margin-bottom: 0.32em;
+  border-bottom: 1.5px dotted color-mix(in oklab, currentColor 45%, transparent);
+  scale: calc(1 - var(--pre)) 1;
+  transform-origin: 0 50%;
+  transition: scale 800ms var(--ease-draw) var(--d, 0ms);
+}
+.ldr-value {
+  opacity: calc(1 - var(--pre));
+  translate: 0 calc(var(--pre) * 0.5em);
+  transition:
+    opacity 400ms ease-out calc(var(--d, 0ms) + 450ms),
+    translate 500ms var(--ease-out) calc(var(--d, 0ms) + 450ms);
+}
+
+/* Hairline that draws itself across. */
+.rule-draw {
+  scale: calc(1 - var(--pre)) 1;
+  transform-origin: 0 50%;
+  transition: scale 1100ms var(--ease-draw) var(--d, 0ms);
+}
+
+/* Odometer: each digit is a strip of 0-9 that rolls into place. */
+.odo-col {
+  display: inline-block;
+  height: 1.1em;
+  line-height: 1.1em;
+  overflow: clip;
+  vertical-align: bottom;
+}
+.odo-strip {
+  display: flex;
+  flex-direction: column;
+  translate: 0 calc((1 - var(--pre)) * var(--n, 0) * -1.1em);
+  transition: translate 700ms cubic-bezier(0.2, 0.8, 0.2, 1) calc(var(--d, 0ms) + var(--i, 0) * 40ms);
+}
+.odo-quick .odo-strip {
+  transition-duration: 450ms;
+  transition-delay: calc(var(--i, 0) * 25ms);
+}
+@media (prefers-reduced-motion: reduce) {
+  .odo-strip {
+    transition: none;
+  }
+}
+.odo-strip > span {
+  display: block;
+  height: 1.1em;
+}
+
+/* Ticker tape */
+@media (prefers-reduced-motion: no-preference) {
+  .ticker-track {
+    animation: ticker var(--ticker-dur, 60s) linear infinite;
+  }
+}
+.ticker:hover .ticker-track {
+  animation-play-state: paused;
+}
+@keyframes ticker {
+  to {
+    translate: -50% 0;
+  }
+}
+
+@layer components {
+/* Primary call to action: an ink slab that lifts off a hard lime shadow. */
+.btn-ink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  border-radius: var(--radius);
+  background: var(--primary);
+  color: var(--primary-foreground);
+  font-weight: 600;
+  box-shadow: 0 0 0 0 var(--lime);
+  transition:
+    translate 160ms var(--ease-out),
+    box-shadow 160ms var(--ease-out);
+}
+.btn-ink:hover {
+  translate: -3px -3px;
+  box-shadow: 4px 4px 0 0 var(--lime);
+}
+.btn-ink:active {
+  translate: 0 0;
+  box-shadow: 0 0 0 0 var(--lime);
+}
+.btn-ink:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 3px;
+  box-shadow: 4px 4px 0 0 var(--lime);
+}
+}
+
+/* Ruled ledger paper */
+.ruled {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0 calc(var(--rule, 2rem) - 1px),
+    var(--border) calc(var(--rule, 2rem) - 1px) var(--rule, 2rem)
+  );
+}
+
+/* Index cards that flip (Learn chapter) */
+.flip-card {
+  perspective: 1200px;
+}
+.flip-inner {
+  position: relative;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 600ms cubic-bezier(0.3, 1.25, 0.5, 1);
+}
+.flip-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.flip-back {
+  transform: rotateY(180deg);
+}
+.flip-card[aria-pressed='true'] .flip-inner {
+  transform: rotateY(180deg);
+}
+@media (hover: hover) {
+  .flip-card:hover .flip-inner {
+    transform: rotateY(180deg);
+  }
+}
+
+/* Scroll scenes: tall and pinned when motion is allowed, plain sections otherwise. */
+.scroll-scene {
+  position: relative;
+  height: var(--scene-h, 300vh);
+}
+.scroll-scene > .scroll-scene-pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: clip;
+}
+@media (scripting: none), (prefers-reduced-motion: reduce) {
+  .scroll-scene {
+    height: auto;
+  }
+  .scroll-scene > .scroll-scene-pin {
+    position: relative;
+    height: auto;
+    overflow: visible;
+  }
+}
+/* Steps that sit on top of each other while pinned, and read as a list otherwise. */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .stack-steps {
+    display: grid;
+  }
+  .stack-steps > * {
+    grid-area: 1 / 1;
+  }
+}
+
+/*
+ * shadcn/ui uses --accent for hover and focus surfaces. Here --accent is the
+ * lime highlighter, so menus, lists and quiet buttons stay neutral.
+ */
+[data-slot='dropdown-menu-content'],
+[data-slot='dropdown-menu-sub-content'],
+[data-slot='select-content'],
+[data-slot='command'],
+[data-slot='context-menu-content'],
+[data-slot='menubar-content'],
+[data-slot='navigation-menu'],
+[data-slot='toggle'],
+[data-slot='toggle-group'],
+[data-slot='skeleton'],
+[data-slot='calendar'],
+[data-slot='popover-content'] {
+  --accent: var(--muted);
+  --accent-foreground: var(--foreground);
+}
+
+[data-slot='button'].hover\:bg-accent:hover,
+[data-slot='button'].dark\:hover\:bg-accent\/50:hover {
+  background-color: var(--muted);
+  color: var(--foreground);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Learn chapter: index cards fan out from a stack on large screens. */
+@media (min-width: 1024px) {
+  .fan-card {
+    translate: calc((1 - var(--pre, 0)) * var(--fx)) calc((1 - var(--pre, 0)) * var(--fy));
+    rotate: calc((1 - var(--pre, 0)) * var(--fr));
+    transition:
+      translate 1100ms var(--ease-out) calc(var(--i) * 70ms + 150ms),
+      rotate 1100ms var(--ease-out) calc(var(--i) * 70ms + 150ms);
+  }
+}
+
+/* Pricing FAQ: the answer slides open. */
+@media (prefers-reduced-motion: no-preference) {
+  .faq[open] .faq-answer {
+    animation: faq-open 280ms var(--ease-out);
+  }
+}
+@keyframes faq-open {
+  from {
+    opacity: 0;
+    translate: 0 -0.5rem;
   }
 }

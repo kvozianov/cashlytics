@@ -1,40 +1,61 @@
 import Link from "next/link"
+import { cn } from "@/lib/utils"
 
-export function Logo({ className = "" }: { className?: string }) {
+type LogoProps = {
+  className?: string
+  /** Where the logo links to. Pass `null` to render it without a link. */
+  href?: string | null
+  /** Show only the mark (the name stays available to screen readers). */
+  markOnly?: boolean
+  markClassName?: string
+}
+
+/**
+ * Three rising ink bars and a lime coin landing on the tallest one. Drawn on a
+ * 2-unit grid so it stays crisp at 16 px. Bars follow the text colour.
+ */
+export function LogoMark({ className }: { className?: string }) {
   return (
-    <Link href="/" className={`flex items-center gap-2 ${className}`}>
-      <div className="relative flex h-9 w-9 items-center justify-center">
-        <svg
-          viewBox="0 0 40 40"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-9 w-9"
-        >
-          <defs>
-            <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#3b82f6" />
-              <stop offset="100%" stopColor="#10b981" />
-            </linearGradient>
-          </defs>
-          <rect width="40" height="40" rx="10" fill="url(#logoGradient)" />
-          <path
-            d="M12 28V18L16 14V28H12Z"
-            fill="white"
-            opacity="0.9"
-          />
-          <path
-            d="M18 28V16L22 12V28H18Z"
-            fill="white"
-          />
-          <path
-            d="M24 28V14L28 10V28H24Z"
-            fill="white"
-            opacity="0.9"
-          />
-          <circle cx="27" cy="14" r="3" fill="white" />
-        </svg>
-      </div>
-      <span className="text-xl font-bold text-foreground">Cashlytics</span>
+    <svg
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      focusable="false"
+      className={cn("h-8 w-8 shrink-0 text-foreground", className)}
+    >
+      <path d="M2 30V21.5L8 19V30Z" fill="currentColor" />
+      <path d="M12 30V15.5L18 13V30Z" fill="currentColor" />
+      <path d="M22 30V11.5L28 9V30Z" fill="currentColor" />
+      <circle cx="25.5" cy="7" r="4.75" fill="#D6F84C" stroke="#14130F" strokeWidth="2" />
+    </svg>
+  )
+}
+
+export function Logo({ className, href = "/", markOnly = false, markClassName }: LogoProps) {
+  const content = (
+    <>
+      <LogoMark className={markClassName} />
+      {markOnly ? (
+        <span className="sr-only">Cashlytics</span>
+      ) : (
+        <span className="font-display text-[1.375rem] leading-none font-bold tracking-[-0.035em] text-foreground">
+          Cashlytics
+        </span>
+      )}
+    </>
+  )
+
+  if (href === null) {
+    return <span className={cn("flex items-center gap-2", className)}>{content}</span>
+  }
+
+  return (
+    <Link
+      href={href}
+      className={cn("flex items-center gap-2 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4", className)}
+    >
+      {content}
     </Link>
   )
 }
