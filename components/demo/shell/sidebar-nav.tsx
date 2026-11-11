@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 import { needsReview } from '@/lib/demo/categorize'
@@ -9,6 +8,7 @@ import { useDemo } from '@/lib/demo/store'
 import { cn } from '@/lib/utils'
 
 import { DEMO_NAV, isActive } from './nav'
+import { QueryLink } from './navigate'
 
 /** The list of demo sections, with small counters for things that need attention. */
 export function SidebarNav({ collapsed = false, onNavigate }: { collapsed?: boolean; onNavigate?: () => void }) {
@@ -30,7 +30,7 @@ export function SidebarNav({ collapsed = false, onNavigate }: { collapsed?: bool
           const counter = counters[item.href]
           return (
             <li key={item.href}>
-              <Link
+              <QueryLink
                 href={item.href}
                 onClick={onNavigate}
                 aria-current={active ? 'page' : undefined}
@@ -50,7 +50,7 @@ export function SidebarNav({ collapsed = false, onNavigate }: { collapsed?: bool
                     <span className="sr-only"> {counter.label}</span>
                   </span>
                 )}
-              </Link>
+              </QueryLink>
             </li>
           )
         })}

@@ -1,9 +1,9 @@
 'use client'
 
-import Link from 'next/link'
 import { ArrowRight, Check } from 'lucide-react'
 
 import { MarginNote, Marker } from '@/components/brand'
+import { QueryLink } from '@/components/demo/shell/navigate'
 import { Button } from '@/components/ui/button'
 import { useLessons, useWeakPoints } from '@/lib/demo/hooks'
 import { cn } from '@/lib/utils'
@@ -52,10 +52,10 @@ export function LessonIndex() {
           <p className="max-w-xl text-[15px] text-pretty text-muted-foreground">{recommended.lesson.summary}</p>
           <div className="flex flex-wrap items-center gap-3 pt-2">
             <Button asChild className="btn-ink">
-              <Link href={`/demo/learn?lesson=${recommended.lesson.id}`}>
+              <QueryLink href={`/demo/learn?lesson=${recommended.lesson.id}`}>
                 {recommended.completed ? 'Read it again' : 'Start the lesson'}
                 <ArrowRight aria-hidden="true" />
-              </Link>
+              </QueryLink>
             </Button>
             <span className="font-mono text-xs text-muted-foreground">{recommended.lesson.minutes} min read</span>
           </div>
@@ -78,7 +78,7 @@ export function LessonIndex() {
         <ol className="grid gap-x-10 md:grid-cols-2">
           {lessons.map((l, i) => (
             <li key={l.lesson.id} className="border-b border-border">
-              <Link
+              <QueryLink
                 href={`/demo/learn?lesson=${l.lesson.id}`}
                 className="group grid grid-cols-[2rem_minmax(0,1fr)_auto] items-baseline gap-x-3 py-4 focus-visible:outline-offset-[-2px]"
               >
@@ -96,7 +96,7 @@ export function LessonIndex() {
                     <span className="font-mono text-[11px] text-muted-foreground">{l.lesson.minutes} min</span>
                   )}
                 </span>
-              </Link>
+              </QueryLink>
             </li>
           ))}
         </ol>

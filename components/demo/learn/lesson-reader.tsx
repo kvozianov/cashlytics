@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight, Check } from 'lucide-react'
 import { useEffect } from 'react'
 
 import { Marker, MarginNote, Receipt, Stamp } from '@/components/brand'
+import { QueryLink } from '@/components/demo/shell/navigate'
 import { Button } from '@/components/ui/button'
 import { useDemoActions, useLessons, usePersona } from '@/lib/demo/hooks'
 
@@ -29,10 +30,10 @@ export function LessonReader({ id }: { id: string }) {
   return (
     <article aria-labelledby="lesson-title" className="space-y-14">
       <div>
-        <Link href="/demo/learn" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground underline-offset-4 hover:text-foreground hover:underline">
+        <QueryLink href="/demo/learn" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground underline-offset-4 hover:text-foreground hover:underline">
           <ArrowLeft aria-hidden="true" className="size-3.5" />
           All lessons
-        </Link>
+        </QueryLink>
         <div className="mt-6 flex flex-wrap items-start justify-between gap-4">
           <div className="max-w-3xl space-y-3">
             <p className="font-mono text-xs tracking-wider text-muted-foreground uppercase">
@@ -87,10 +88,10 @@ export function LessonReader({ id }: { id: string }) {
             <Button asChild variant="outline">
               <Link href={lesson.tryIt.href}>{lesson.tryIt.label}</Link>
             </Button>
-            <Link href={`/demo/learn?lesson=${next.lesson.id}`} className="ml-auto inline-flex items-center gap-1.5 text-sm font-medium underline-offset-4 hover:underline">
+            <QueryLink href={`/demo/learn?lesson=${next.lesson.id}`} className="ml-auto inline-flex items-center gap-1.5 text-sm font-medium underline-offset-4 hover:underline">
               Next: {next.lesson.title}
               <ArrowRight aria-hidden="true" className="size-3.5" />
-            </Link>
+            </QueryLink>
           </div>
         </div>
 

@@ -1,6 +1,5 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import { BookOpen, Compass, FileText, Info, Monitor, Moon, Plus, Receipt, RotateCcw, Sun, UserRound, type LucideIcon } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { useMemo, useState } from 'react'
@@ -12,6 +11,7 @@ import { matchesQuery, MIN_SEARCH_LENGTH, normaliseQuery, parseAddCommand, searc
 import { useDemo } from '@/lib/demo/store'
 
 import { DEMO_NAV } from './nav'
+import { useDemoNavigate } from './navigate'
 
 interface Action {
   id: string
@@ -35,7 +35,7 @@ interface CommandPaletteProps {
  * adds lessons, transactions and invoices (five each). `add coffee 4.50` goes to quick add.
  */
 export function CommandPalette({ open, onOpenChange, onQuickAdd, onStartTour }: CommandPaletteProps) {
-  const router = useRouter()
+  const navigate = useDemoNavigate()
   const { setTheme } = useTheme()
   const { state, today, persona, actions } = useDemo()
   const [query, setQuery] = useState('')
@@ -94,7 +94,7 @@ export function CommandPalette({ open, onOpenChange, onQuickAdd, onStartTour }: 
     !addLine && pages.length > 0 && (
       <CommandGroup key="pages" heading="Go to">
         {pages.map((p) => (
-          <CommandItem key={p.href} value={`page ${p.href}`} onSelect={() => run(() => router.push(p.href))}>
+          <CommandItem key={p.href} value={`page ${p.href}`} onSelect={() => run(() => navigate(p.href))}>
             <p.icon aria-hidden="true" />
             {p.label}
           </CommandItem>
@@ -114,7 +114,7 @@ export function CommandPalette({ open, onOpenChange, onQuickAdd, onStartTour }: 
     lessons.length > 0 && (
       <CommandGroup key="lessons" heading="Lessons">
         {lessons.map((l) => (
-          <CommandItem key={l.id} value={`lesson ${l.id}`} onSelect={() => run(() => router.push(`/demo/learn?lesson=${l.id}`))}>
+          <CommandItem key={l.id} value={`lesson ${l.id}`} onSelect={() => run(() => navigate(`/demo/learn?lesson=${l.id}`))}>
             <BookOpen aria-hidden="true" />
             {l.title}
           </CommandItem>
@@ -124,7 +124,7 @@ export function CommandPalette({ open, onOpenChange, onQuickAdd, onStartTour }: 
     transactions.length > 0 && (
       <CommandGroup key="transactions" heading="Transactions">
         {transactions.map((t) => (
-          <CommandItem key={t.id} value={`tx ${t.id}`} onSelect={() => run(() => router.push(`/demo/transactions?range=all&tx=${encodeURIComponent(t.id)}`))}>
+          <CommandItem key={t.id} value={`tx ${t.id}`} onSelect={() => run(() => navigate(`/demo/transactions?range=all&tx=${encodeURIComponent(t.id)}`, { scroll: false }))}>
             <Receipt aria-hidden="true" />
             <span className="min-w-0 flex-1 truncate">{t.merchant}</span>
             <span className="shrink-0 font-mono text-xs text-muted-foreground tabular-nums">
@@ -137,7 +137,7 @@ export function CommandPalette({ open, onOpenChange, onQuickAdd, onStartTour }: 
     invoices.length > 0 && (
       <CommandGroup key="invoices" heading="Invoices">
         {invoices.map((h) => (
-          <CommandItem key={h.invoice.id} value={`invoice ${h.invoice.id}`} onSelect={() => run(() => router.push(`/demo/invoices?invoice=${encodeURIComponent(h.invoice.id)}`))}>
+          <CommandItem key={h.invoice.id} value={`invoice ${h.invoice.id}`} onSelect={() => run(() => navigate(`/demo/invoices?invoice=${encodeURIComponent(h.invoice.id)}`, { scroll: false }))}>
             <FileText aria-hidden="true" />
             <span className="min-w-0 flex-1 truncate">
               {h.invoice.number} · {h.clientName}

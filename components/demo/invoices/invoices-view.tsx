@@ -1,7 +1,7 @@
 'use client'
 
 import { FilePlus2 } from 'lucide-react'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 import { useCallback, useState } from 'react'
 
 import { DetailSwitcher } from '@/components/demo/tax/quiet'
@@ -24,7 +24,6 @@ import { InvoiceSummary, PaymentSpeed } from './summary'
 export function InvoicesView() {
   const { persona } = useDemo()
   const params = useSearchParams()
-  const router = useRouter()
   const pathname = usePathname()
 
   const statusParam = params.get('status')
@@ -45,9 +44,11 @@ export function InvoicesView() {
         else next.set(k, v)
       }
       const qs = next.toString()
-      router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false })
+      // Query-only change on the same page: write it to history directly. Next keeps
+      // useSearchParams in sync, and it avoids a router navigation that can drop the change.
+      window.history.replaceState(null, '', qs ? `${pathname}?${qs}` : pathname)
     },
-    [params, pathname, router],
+    [params, pathname],
   )
 
   const closeEditor = () => {
