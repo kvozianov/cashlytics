@@ -24,7 +24,7 @@ Not real:
 
 ## Live demo
 
-Live: <to be added>
+Live: https://cashlytics-demo.vercel.app (the demo itself is at [/demo](https://cashlytics-demo.vercel.app/demo))
 
 The demo needs no sign-up. Add `?persona=freelancer`, `?persona=starter` or `?persona=business` to any `/demo` URL to open a specific persona.
 
